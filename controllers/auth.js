@@ -17,10 +17,13 @@ const crearUsuario = async ( req, res = response) => {
             })
         }
         const usuario = new Usuario( req.body );
+
         //?Encriptar password
         const salt = bcrypt.genSaltSync();
         usuario.password = bcrypt.hashSync(password,salt);
+        
         await usuario.save();
+        
         //?generar jsonweb token
         const token = await generarJWT( usuario.id);
         res.json({
