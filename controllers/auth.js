@@ -1,10 +1,13 @@
 const{ response } = require("express");
-const Usuario = require("../models/usuario");
 const bcrypt = require("bcryptjs/dist/bcrypt");
+
+const Usuario = require("../models/usuario");
 const { generarJWT } =require('../helpers/jwt')
 
-const crearUSuario = async ( req, res = response) => {
+const crearUsuario = async ( req, res = response) => {
+    
     const { email,password} = req.body;
+
     try {
         const existeEmail = await Usuario.findOne({email});
         if (existeEmail) {
@@ -80,7 +83,7 @@ const renewToken = async (req, res = response)=>{
 }
 
 module.exports= {
-    crearUSuario,
+    crearUsuario,
     login,
     renewToken
 }
